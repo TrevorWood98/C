@@ -1,33 +1,56 @@
 #include <stdio.h>
 #include <stdbool.h>
-#define N 10
-bool search(const int a[], int n, int key);
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#define BUFFER 100
+void isPalidrome(char *s);
 int main()
 {
 
-    int temperature[7] = {1, 2, 3, 4, 5, 6, 7};
+    int c = 0;
+    char *p = malloc(100 * sizeof(char));
+    char *s = p;
 
-    bool searching = search(temperature, 7, 3);
-    switch (searching)
+    if (p == NULL)
     {
-    case 1:
-        printf("Found\n");
-        break;
-
-    default:
-        printf("Not Found\n");
-        break;
+        printf("INvalid");
+        return 1;
     }
+
+    printf("Enter a string of letters: \n");
+
+    while ((c = getchar()) != '\n' && c != EOF)
+    {
+        *p = c;
+        p++;
+    }
+    *p = '\0';
+
+    printf("User input: %s\n", s);
+
+    isPalidrome(s);
+    free(s);
     return 0;
 }
 
-bool search(const int *a, int n, int key)
+void isPalidrome(char *s)
 {
-    const int *p;
-    for (p = a; p < a + n; p++)
+    char *right = s + strlen(s);
+    char *left = s; // start
+
+    char leftChar = toupper(*left);
+    char rightChar = toupper(*right);
+
+    while (left < right)
     {
-        if (key == *p)
-            return true;
+
+        while (left < right)
+            left++;
+
+        while (right > left)
+            right--;
     }
-    return false;
+
+    printf("Is a Plaidrome");
 }
